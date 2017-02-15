@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="simple_direction">Simple Direction</string>
+    <string name="transit_direction">Transit Direction</string>
+    <string name="alternative_direction">Alternative Direction</string>
+    <string name="request_direction">Request Direction</string>
+    <string name="app_name">Driver Easy</string>
+    <string name="title_activity_service">Map</string>
+
+    <string name="onside">ถึงที่รับ</string>
+    <string name="meter">ค่าโดยสาร</string>
+    <string name="confirm">ยืนยันคัวเลข</string>
+    <string name="start">ออกเดินทาง</string>
+
+    <string name="ok">ตกลง</string>
+    <string name="no">ไม่ตกลง</string>
+</resources>

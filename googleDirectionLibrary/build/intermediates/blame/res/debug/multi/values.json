@@ -1,0 +1,131 @@
+[
+    {
+        "outputFile": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\DriverRY_13feb\\googleDirectionLibrary\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1414,
+                    "endColumn": 67,
+                    "endOffset": 1477
+                },
+                "from": {
+                    "file": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\DriverRY_13feb\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 276,
+                        "endColumn": 63,
+                        "endOffset": 339
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1482,
+                    "endColumn": 166,
+                    "endOffset": 1644
+                },
+                "from": {
+                    "file": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\DriverRY_13feb\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 439,
+                        "endColumn": 166,
+                        "endOffset": 605
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\googleDirectionLibrary\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1414,
+                    "endColumn": 67,
+                    "endOffset": 1477
+                },
+                "from": {
+                    "file": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 276,
+                        "endColumn": 63,
+                        "endOffset": 339
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1482,
+                    "endColumn": 166,
+                    "endOffset": 1644
+                },
+                "from": {
+                    "file": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 439,
+                        "endColumn": 166,
+                        "endOffset": 605
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\Android-GoogleDirectionLibrary\\googleDirectionLibrary\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1414,
+                    "endColumn": 67,
+                    "endOffset": 1477
+                },
+                "from": {
+                    "file": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\Android-GoogleDirectionLibrary\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 276,
+                        "endColumn": 63,
+                        "endOffset": 339
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1482,
+                    "endColumn": 166,
+                    "endOffset": 1644
+                },
+                "from": {
+                    "file": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\Android-GoogleDirectionLibrary\\googleDirectionLibrary\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 439,
+                        "endColumn": 166,
+                        "endOffset": 605
+                    }
+                }
+            }
+        ]
+    }
+]

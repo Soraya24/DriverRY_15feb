@@ -1,14 +1,6 @@
 [
     {
-        "merged": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\DriverRY_13feb\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\DriverRY_13feb\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\layout-v16\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\layout-v16\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\Android-GoogleDirectionLibrary\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\masterUNG\\MyWorkspace\\Wrokspace_Project\\Android-GoogleDirectionLibrary\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\layout-v16\\notification_template_custom_big.xml"
     }
 ]

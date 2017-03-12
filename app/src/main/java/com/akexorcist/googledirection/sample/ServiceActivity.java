@@ -1,7 +1,9 @@
 package com.akexorcist.googledirection.sample;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -67,7 +69,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private LatLng latLng;
     private int hourWaitStartAnInt, minusWaitStartInt,
             hourWaitEndAnInt, minusWaitEndAnInt;
-    private boolean aBoolean = true;
+    private boolean aBoolean = true, aBoolean2 = false;
     private int startTimeCountHour = 0;
     private int startTimeCountMinus = 0;
     private int endTimeCountHour, endTimeCountMinus, endTimeCountDay;
@@ -115,8 +117,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         buttonController();
 
 
-
-
     }   //Main Method
 
     private void buttonController() {
@@ -128,17 +128,12 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 //ค่าเริ่มต้นของ aBoolean มีค่า True แต่ถ้าคลิ๊กครั้งแรก จะมีค่า False
                 // คลิกเมื่อถึงที่รับ
                 if (aBoolean) {
+
                     //ก่อนออกเดินทาง
+                    //Confirm Click ย้ำคิด ย้ำทำ ว่า คลิกแล้วนะ
 
-                    aBoolean = false;   // คลิกอีกครั้งจะไม่มาที่นี่
-                    button.setText(getResources().getString(R.string.start));
+                    confirmClick();
 
-                    //Intent to PhotoActivity
-                    Intent intent = new Intent(ServiceActivity.this, PhotoActivity.class);
-                    intent.putExtra("id_job", jobString[0]);
-                    intent.putExtra("phone_customer", phoneString);
-                    intent.putExtra("id_Driver", loginStrings[0]);
-                    startActivity(intent);
 
                 } else {
                     //เริ่มเดินทาง หรือหยุดเวลา ที่จับ
@@ -160,6 +155,45 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         });
 
     }   // buttonController
+
+    private void confirmClick() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ServiceActivity.this);
+        builder.setCancelable(false);
+        builder.setTitle("กดถ่ายรูป");
+        builder.setMessage("ยืนยันการส่งข้อมูล");
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                aBoolean = false;   // คลิกอีกครั้งจะไม่มาที่นี่
+                aBoolean2 = true;
+                button.setText(getResources().getString(R.string.start));
+
+                //Intent to PhotoActivity
+                Intent intent = new Intent(ServiceActivity.this, PhotoActivity.class);
+                intent.putExtra("id_job", jobString[0]);
+                intent.putExtra("phone_customer", phoneString);
+                intent.putExtra("id_Driver", loginStrings[0]);
+                startActivity(intent);
+                dialogInterface.dismiss();
+
+            }
+        });
+        builder.show();
+
+
+    }
+
+    ;
 
     private void findWaitMinus() {
 
@@ -238,7 +272,9 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
         Log.d("14novV2", "Resume Worked");
 
-        afterReume();
+        if (aBoolean2) {
+            afterReume();
+        }
 
 
         if (!aBoolean) {
@@ -642,12 +678,12 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     }   // requestDirection
 
 
-
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         // Snackbar.make(btnRequestDirection, "Success with status : " + direction.getStatus(), Snackbar.LENGTH_SHORT).show();
         if (direction.isOK()) {
             mMap.addMarker(new MarkerOptions().position(origin));
+
             mMap.addMarker(new MarkerOptions().position(destination));
 
             for (int i = 0; i < direction.getRouteList().size(); i++) {
@@ -665,8 +701,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     public void onDirectionFailure(Throwable t) {
         //  Snackbar.make(btnRequestDirection, t.getMessage(), Snackbar.LENGTH_SHORT).show();
     }   // onDriectionFeilure
-
-
 
 
 }  //Main Class

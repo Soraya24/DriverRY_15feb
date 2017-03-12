@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class ConfirmJob extends AppCompatActivity {
 
     //Explicit
@@ -50,8 +53,19 @@ public class ConfirmJob extends AppCompatActivity {
             String strJSON = findStatusDriver.get();
             Log.d("15febV1", "strJSON ==> " + strJSON);
 
+            JSONArray jsonArray = new JSONArray(strJSON);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            String strStatus = jsonObject.getString("Status");
+            Log.d("15febV1", "Status ==> " + strStatus);
 
+            int intStatus = Integer.parseInt(strStatus);
+            if (intStatus == 2) {
+                Intent intent = new Intent(ConfirmJob.this, ServiceActivity.class);
+                intent.putExtra("Login", loginString);
+                startActivity(intent);
+                finish();
 
+            }
 
         } catch (Exception e) {
             Log.d("15febV1", "e checkStatus ==> " + e.toString());

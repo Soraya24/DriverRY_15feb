@@ -90,15 +90,12 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         //Bind WIdget
         bindWidget();
 
-        //Get Value From Intent
-        loginStrings = getIntent().getStringArrayExtra("Login");
-        Log.d("28decV2", "id_Passenger ==>" + loginStrings[0]);
+        //Get Value From Intent โดยการดึงข้อมูล ของผู่ที่กำลัง Login อยู่นั้นเอง
+        getValueFromIntent();
 
 
         //Get Value From JSON
-        myConstant = new MyConstant();
-        GetJob getJob = new GetJob(ServiceActivity.this);
-        getJob.execute(myConstant.getUrlGetJobWhereID());
+        getValueFromJSON();
 
 
         //Setup For Get Location
@@ -118,6 +115,26 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
 
     }   //Main Method
+
+    private void getValueFromJSON() {
+        myConstant = new MyConstant();
+
+        try {
+
+            GetJob getJob = new GetJob(ServiceActivity.this);
+            getJob.execute(myConstant.getUrlGetJobWhereID());
+
+        } catch (Exception e) {
+            Log.d("13MarchV1", "e getValueFromJSON ==> " + e.toString());
+        }
+
+    }   // getValue
+
+    private void getValueFromIntent() {
+
+        loginStrings = getIntent().getStringArrayExtra("Login");
+        Log.d("28decV2", "id_Passenger ==>" + loginStrings[0]);
+    }   // getValueFromIntent
 
     private void buttonController() {
 
@@ -240,7 +257,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         timeTextView = (TextView) findViewById(R.id.textView6);
         imageView = (ImageView) findViewById(R.id.imageView2);
         button = (Button) findViewById(R.id.button4);
-    }
+    }   // bindWidget
+
 
     @Override
     public void onBackPressed() {
@@ -471,6 +489,10 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         }
     };
 
+    // GetJob จะรับส่งค่า id ของคนขับ และ Statusที่มีค่าเท่ากับ 2 ไป
+    // Select Where ที่ Table jobTable
+    // เพื่อหา Record ที่ คนขับคนนี่รับงานอยู่
+
 
     private class GetJob extends AsyncTask<String, Void, String> {
 
@@ -682,9 +704,17 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     public void onDirectionSuccess(Direction direction, String rawBody) {
         // Snackbar.make(btnRequestDirection, "Success with status : " + direction.getStatus(), Snackbar.LENGTH_SHORT).show();
         if (direction.isOK()) {
-            mMap.addMarker(new MarkerOptions().position(origin));
 
-            mMap.addMarker(new MarkerOptions().position(destination));
+            //นี่คือการสร้าง Marker ของจุดไปรับลูกค้า Origin
+            //และ จุดไปส่งลูกค้า Destination
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(origin)
+            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_origin)));
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(destination)
+            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_desination)));
 
             for (int i = 0; i < direction.getRouteList().size(); i++) {
                 Route route = direction.getRouteList().get(i);

@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\mk_origin.png",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_origin.png"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\mk_desination.png",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_desination.png"
+    },
+    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     }

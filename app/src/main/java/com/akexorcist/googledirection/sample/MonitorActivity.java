@@ -2,15 +2,23 @@ package com.akexorcist.googledirection.sample;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,7 +29,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MonitorActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+public class MonitorActivity extends FragmentActivity implements OnMapReadyCallback,DirectionCallback {
 
     //Explicit
     private GoogleMap mMap;
@@ -31,6 +41,8 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
     private Criteria criteria;
     private double userLatADouble = 0, userLngADouble = 0;
     private Marker destinationMarker, userMarker;
+    private String serverKey = "AIzaSyD_6HZwKgnxSOSkMWocLs4-2AViQuPBteQ";
+    private boolean aBoolean = true;
 
 
     @Override
@@ -84,6 +96,7 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         super.onStop();
 
         locationManager.removeUpdates(locationListener);
+        aBoolean = false;
 
     }
 
@@ -175,10 +188,38 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         //Create Map and Setup Center Map
         createMapAndSetup();
 
-        //Create Marker
-        createMarker();
+        //Create Routing Map
+        createRoutingMap();
 
     }   // onMapReady
+
+    private void createRoutingMap() {
+
+        mMap.clear();
+
+        createMarker();
+
+        LatLng latLng = new LatLng(userLatADouble, userLngADouble);
+
+        GoogleDirection.withServerKey(serverKey)
+                .from(new LatLng(userLatADouble, userLngADouble))
+                .to(destinationLatLng)
+                .transportMode(TransportMode.DRIVING)
+                .execute(this);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (aBoolean) {
+                    createRoutingMap();
+                }
+            }
+        }, 1000);
+
+    }   // createRoutingMap
+
+
 
     private void createMarker() {
 
@@ -200,4 +241,21 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
                 .newLatLngZoom(new LatLng(userLatADouble, userLngADouble),16));
     }
 
+    @Override
+    public void onDirectionSuccess(Direction direction, String rawBody) {
+
+        if (direction.isOK()) {
+
+            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+            mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.RED));
+
+
+        }
+
+    }   //onDirectionSuccess
+
+    @Override
+    public void onDirectionFailure(Throwable t) {
+
+    }   // onDirectFailure
 }   // Main Class

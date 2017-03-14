@@ -64,6 +64,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.akexorcist.googledirection.sample.ConfirmJob" />
         <activity android:name="com.akexorcist.googledirection.sample.NotificationAlert" />
+        <activity android:name="com.akexorcist.googledirection.sample.MonitorActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

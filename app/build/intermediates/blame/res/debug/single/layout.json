@@ -270,5 +270,9 @@
     {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
         "source": "C:\\Users\\DARK\\.android\\build-cache\\4d767dfbfdbae8ace302ba6af391ff43c613f1aa\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_monitor.xml",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\layout\\activity_monitor.xml"
     }
 ]

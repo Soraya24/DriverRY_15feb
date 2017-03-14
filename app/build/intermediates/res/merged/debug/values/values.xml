@@ -651,6 +651,9 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="confirm">ยืนยันคัวเลข</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_KEY_HERE
+    </string>
     <string name="meter">ค่าโดยสาร</string>
     <string name="no">ไม่ตกลง</string>
     <string name="ok">ตกลง</string>
@@ -660,6 +663,7 @@
     <string name="simple_direction">Simple Direction</string>
     <string name="start">ออกเดินทาง</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="title_activity_monitor">Map</string>
     <string name="title_activity_service">Map</string>
     <string name="transit_direction">Transit Direction</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

@@ -223,6 +223,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
             Intent intent = new Intent(ServiceActivity.this, MonitorActivity.class);
             intent.putExtra("Login", loginStrings);
+            intent.putExtra("Lat", destination.latitude);
+            intent.putExtra("Lng", destination.longitude);
             startActivity(intent);
             finish();
 

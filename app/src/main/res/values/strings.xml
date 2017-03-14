@@ -15,4 +15,6 @@
     <string name="ok">ตกลง</string>
     <string name="no">ไม่ตกลง</string>
     <string name="title_activity_monitor">Map</string>
+
+    <string name="finishJob">ทำงานเสร็จสิ้นแล้ว</string>
 </resources>

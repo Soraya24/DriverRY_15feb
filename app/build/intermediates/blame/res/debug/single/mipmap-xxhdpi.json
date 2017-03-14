@@ -1,7 +1,15 @@
 [
     {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\mk_car2.png",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-xxhdpi\\mk_car2.png"
+    },
+    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\mk_desination.png",
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-xxhdpi\\mk_desination.png"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\mk_car.png",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-xxhdpi\\mk_car.png"
     },
     {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\mk_origin.png",

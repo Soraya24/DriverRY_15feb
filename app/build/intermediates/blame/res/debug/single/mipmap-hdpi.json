@@ -12,12 +12,12 @@
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_car2.png"
     },
     {
-        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\mk_driver.png",
-        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_driver.png"
-    },
-    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\mk_car.png",
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_car.png"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\mk_driver.png",
+        "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\mipmap-hdpi\\mk_driver.png"
     },
     {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",

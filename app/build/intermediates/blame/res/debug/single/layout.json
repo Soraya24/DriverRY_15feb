@@ -20,12 +20,12 @@
         "source": "C:\\Users\\DARK\\.android\\build-cache\\4d767dfbfdbae8ace302ba6af391ff43c613f1aa\\output\\res\\layout\\notification_template_custom_big.xml"
     },
     {
-        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
-        "source": "C:\\Users\\DARK\\.android\\build-cache\\dc53d842da608b52c362aeabe1089e33c5ff81ac\\output\\res\\layout\\design_navigation_menu_item.xml"
-    },
-    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
         "source": "C:\\Users\\DARK\\.android\\build-cache\\4d767dfbfdbae8ace302ba6af391ff43c613f1aa\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\DARK\\.android\\build-cache\\dc53d842da608b52c362aeabe1089e33c5ff81ac\\output\\res\\layout\\design_navigation_menu_item.xml"
     },
     {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
@@ -60,12 +60,12 @@
         "source": "C:\\Users\\DARK\\.android\\build-cache\\dc53d842da608b52c362aeabe1089e33c5ff81ac\\output\\res\\layout\\design_navigation_item_separator.xml"
     },
     {
-        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
-        "source": "C:\\Users\\DARK\\.android\\build-cache\\4d767dfbfdbae8ace302ba6af391ff43c613f1aa\\output\\res\\layout\\abc_screen_content_include.xml"
-    },
-    {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_monitor_layout.xml",
         "source": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\src\\main\\res\\layout\\my_monitor_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\DARK\\.android\\build-cache\\4d767dfbfdbae8ace302ba6af391ff43c613f1aa\\output\\res\\layout\\abc_screen_content_include.xml"
     },
     {
         "merged": "C:\\Users\\DARK\\Desktop\\Project15feb\\DriverRY_15feb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",

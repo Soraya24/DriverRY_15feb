@@ -7,12 +7,11 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -31,11 +29,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class MonitorActivity extends FragmentActivity implements OnMapReadyCallback,DirectionCallback {
+public class MonitorActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback {
 
     //Explicit
     private GoogleMap mMap;
-    private String[] loginString; //นี่คือ Array ของ user ที่ Login อยู่
+    private String[] loginStrings;  // นี่คือ Array ของ user ที่ Login อยู่
     private LatLng destinationLatLng;
     private LocationManager locationManager;
     private Criteria criteria;
@@ -44,19 +42,20 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
     private String serverKey = "AIzaSyD_6HZwKgnxSOSkMWocLs4-2AViQuPBteQ";
     private boolean aBoolean = true;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_monitor_layout);
-        // For Create Fragment
+        //For Create Fragment
         forCreateFragment();
 
-        // Get Value Form Intent
+        //Get Value Form Intent
         getValueFromIntent();
 
         //Setup Parameter
         setupParameter();
+
+
 
     }   // Main Method
 
@@ -84,11 +83,14 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         if (gpsLocation != null) {
             userLatADouble = gpsLocation.getLatitude();
             userLngADouble = gpsLocation.getLongitude();
-
         }
 
         Log.d("14MarchV1", "userLat ==> " + userLatADouble);
         Log.d("14MarchV1", "userLng ==> " + userLngADouble);
+
+
+
+
     }
 
     @Override
@@ -120,17 +122,14 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         }
 
         return location;
-
     }
-
 
     public LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
 
-            userLatADouble = location.getLongitude();
+            userLatADouble = location.getLatitude();
             userLngADouble = location.getLongitude();
-
 
         }   // onLocationChange
 
@@ -162,9 +161,9 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
 
         try {
 
-            loginString = getIntent().getStringArrayExtra("Login");
-            double lat = getIntent().getDoubleExtra("Lat", 13.694019);
-            double lng = getIntent().getDoubleExtra("Lng", 100.648247);
+            loginStrings = getIntent().getStringArrayExtra("Login");
+            double lat = getIntent().getDoubleExtra("Lat", 13.694956);
+            double lng = getIntent().getDoubleExtra("Lng", 100.647696);
             destinationLatLng = new LatLng(lat, lng);
 
         } catch (Exception e) {
@@ -180,7 +179,6 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -191,31 +189,42 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         //Create Routing Map
         createRoutingMap();
 
+
     }   // onMapReady
 
     private void createRoutingMap() {
 
-        mMap.clear();
+        try {
 
-        createMarker();
+            mMap.clear();
 
-        LatLng latLng = new LatLng(userLatADouble, userLngADouble);
 
-        GoogleDirection.withServerKey(serverKey)
-                .from(new LatLng(userLatADouble, userLngADouble))
-                .to(destinationLatLng)
-                .transportMode(TransportMode.DRIVING)
-                .execute(this);
+            createMarker();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (aBoolean) {
-                    createRoutingMap();
+            LatLng latLng = new LatLng(userLatADouble, userLngADouble);
+
+            GoogleDirection.withServerKey(serverKey)
+                    .from(latLng)
+                    .to(destinationLatLng)
+                    .transportMode(TransportMode.DRIVING)
+                    .execute(this);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (aBoolean) {
+                        createRoutingMap();
+                    }
                 }
-            }
-        }, 1000);
+            }, 1000);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
     }   // createRoutingMap
 
@@ -225,20 +234,21 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
 
         //for Destination
         destinationMarker = mMap.addMarker(new MarkerOptions()
-        .position(destinationLatLng)
-        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_desination)));
+                .position(destinationLatLng)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_desination)));
 
         //for User
         userMarker = mMap.addMarker(new MarkerOptions()
-        .position(new LatLng(userLatADouble, userLngADouble))
-        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
+                .position(new LatLng(userLatADouble, userLngADouble))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
+
 
 
     }   // createMarker
 
     private void createMapAndSetup() {
         mMap.animateCamera(CameraUpdateFactory
-                .newLatLngZoom(new LatLng(userLatADouble, userLngADouble),16));
+                .newLatLngZoom(new LatLng(userLatADouble, userLngADouble), 16));
     }
 
     @Override
@@ -247,15 +257,21 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         if (direction.isOK()) {
 
             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-            mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.RED));
+            mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.BLUE));
 
 
+        } else {
+            Log.d("14MarchV1", "direction ==> not OK");
         }
 
-    }   //onDirectionSuccess
+
+    }   // onDirectionSuccess
 
     @Override
     public void onDirectionFailure(Throwable t) {
 
-    }   // onDirectFailure
+        Log.d("14MarchV1", "t ==> " + t.getMessage());
+
+    }   // onDirectionFailure
+
 }   // Main Class

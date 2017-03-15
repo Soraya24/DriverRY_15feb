@@ -39,7 +39,7 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
     private Criteria criteria;
     private double userLatADouble = 0, userLngADouble = 0;
     private Marker destinationMarker, userMarker;
-    private String serverKey = "AIzaSyD_6HZwKgnxSOSkMWocLs4-2AViQuPBteQ";
+    private String serverKey = "AIzaSyDE4-7-stlHCxH4BB539QF9OM4VU1u6HSs";
     private boolean aBoolean = true;
 
     @Override
@@ -155,6 +155,9 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
         criteria.setBearingRequired(false);
+
+
+
     }
 
     private void getValueFromIntent() {
@@ -186,20 +189,41 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         //Create Map and Setup Center Map
         createMapAndSetup();
 
+        createMarker();
+
         //Create Routing Map
         createRoutingMap();
+
+        myLoop();
 
 
     }   // onMapReady
 
+    private void myLoop() {
+
+        //ToDo
+        final Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(userLatADouble, userLngADouble))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
+
+
+        //Delay
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (aBoolean) {
+                    marker.remove();
+                    myLoop();
+                }
+            }
+        }, 1000);
+
+    }
+
     private void createRoutingMap() {
 
         try {
-
-            mMap.clear();
-
-
-            createMarker();
 
             LatLng latLng = new LatLng(userLatADouble, userLngADouble);
 
@@ -208,17 +232,6 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
                     .to(destinationLatLng)
                     .transportMode(TransportMode.DRIVING)
                     .execute(this);
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (aBoolean) {
-                        createRoutingMap();
-                    }
-                }
-            }, 1000);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,7 +253,7 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         //for User
         userMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(userLatADouble, userLngADouble))
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_origin)));
 
 
 

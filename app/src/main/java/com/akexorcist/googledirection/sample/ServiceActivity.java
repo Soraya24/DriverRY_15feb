@@ -110,24 +110,23 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         //Button Controller
         buttonController();
 
-        googleMapController();
 
 
     }   //Main Method
 
-    private void googleMapController() {
+    private void googleMapController(String strLat, String strLng) {
 
         Button button = (Button) findViewById(R.id.btnGoogleMap);
+
+        final String strUri = "geo:0,0?q= "+strLat+", "+strLng+" (" + name + ")";
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-//                        Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345"));
-//                startActivity(intent);
 
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("geo:0,0?q=13.668160, 100.634406 (" + name + ")"));
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+
                 startActivity(intent);
 
             }
@@ -624,6 +623,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 //Show Text
                 GetPassenger getPassenger = new GetPassenger(context, jobString);
                 getPassenger.execute(myConstant.getUrlGetPassengerWhereID());
+
+                googleMapController(jobString[7], jobString[8]);
 
 
             } catch (Exception e) {

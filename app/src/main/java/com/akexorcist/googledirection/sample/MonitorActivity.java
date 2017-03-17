@@ -43,7 +43,7 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
     private boolean aBoolean = true;
     private Marker marker;
     private Handler handler = new Handler();
-    private int secAnInt = 3000;
+    private int secAnInt = 60000;    // ความถี่ ของการใช้ API
     private boolean aBoolean2 = true;
     private double somLengthADouble = 0.0;
 

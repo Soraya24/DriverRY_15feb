@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.akexorcist.googledirection.sample.MonitorActivity"
+            android:name="com.akexorcist.googledirection.sample.MainActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,7 +64,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.akexorcist.googledirection.sample.ConfirmJob" />
         <activity android:name="com.akexorcist.googledirection.sample.NotificationAlert" />
-        <activity android:name="com.akexorcist.googledirection.sample.MainActivity" />
+        <activity android:name="com.akexorcist.googledirection.sample.MonitorActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -34,13 +34,43 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
     //Explicit
     private GoogleMap mMap;
     private String[] loginStrings;  // นี่คือ Array ของ user ที่ Login อยู่
-    private LatLng destinationLatLng;
+    private LatLng destinationLatLng, startLatLng;
     private LocationManager locationManager;
     private Criteria criteria;
     private double userLatADouble = 0, userLngADouble = 0;
     private Marker destinationMarker, userMarker;
     private String serverKey = "AIzaSyDE4-7-stlHCxH4BB539QF9OM4VU1u6HSs";
     private boolean aBoolean = true;
+    private Marker marker;
+    private Handler handler = new Handler();
+    private int secAnInt = 3000;
+    private boolean aBoolean2 = true;
+    private double somLengthADouble = 0.0;
+
+
+
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+
+                marker.remove();
+
+
+                LatLng latLng = new LatLng(userLatADouble, userLngADouble); // จุดล่าสุด
+
+                createRoutingMap(startLatLng, latLng);
+
+                createCarMarker();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            handler.postDelayed(runnable, secAnInt);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +118,10 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         Log.d("14MarchV1", "userLat ==> " + userLatADouble);
         Log.d("14MarchV1", "userLng ==> " + userLngADouble);
 
+        //myLoop();
 
 
-
-    }
+    }   // refreshLocation
 
     @Override
     protected void onStop() {
@@ -164,9 +194,10 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
 
         try {
 
+            double[] doubles = new double[]{13.669993, 100.621239};
             loginStrings = getIntent().getStringArrayExtra("Login");
-            double lat = getIntent().getDoubleExtra("Lat", 13.694956);
-            double lng = getIntent().getDoubleExtra("Lng", 100.647696);
+            double lat = getIntent().getDoubleExtra("Lat", doubles[0]);
+            double lng = getIntent().getDoubleExtra("Lng", doubles[1]);
             destinationLatLng = new LatLng(lat, lng);
 
         } catch (Exception e) {
@@ -192,55 +223,72 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         createMarker();
 
         //Create Routing Map
-        createRoutingMap();
+        startLatLng = new LatLng(userLatADouble, userLngADouble);
+        createRoutingMap(startLatLng, destinationLatLng);
 
-        myLoop();
+        // myLoop();
+
+        createCarMarker();
+
+        handler.postDelayed(runnable, secAnInt);
 
 
     }   // onMapReady
 
-    private void myLoop() {
+    private void createCarMarker() {
 
-        //ToDo
-        final Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(userLatADouble, userLngADouble))
+        startLatLng = new LatLng(userLatADouble, userLngADouble);
+
+        marker = mMap.addMarker(new MarkerOptions()
+                .position(startLatLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
-
-
-        //Delay
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (aBoolean) {
-                    marker.remove();
-                    myLoop();
-                }
-            }
-        }, 1000);
-
     }
 
-    private void createRoutingMap() {
+    private void myLoop() {
 
         try {
 
-            LatLng latLng = new LatLng(userLatADouble, userLngADouble);
+            //ToDo
+            // Create Marker for Car
+            final Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(userLatADouble, userLngADouble))
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_car2)));
 
-            GoogleDirection.withServerKey(serverKey)
-                    .from(latLng)
-                    .to(destinationLatLng)
-                    .transportMode(TransportMode.DRIVING)
-                    .execute(this);
+
+            //Delay
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (aBoolean) {
+                        marker.remove();
+                        myLoop();
+                    }
+                }
+            }, 1000);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }   // myLoop
 
+    private void createRoutingMap(LatLng latlngStart, LatLng latlngDestination) {
+
+        try {
+
+            GoogleDirection.withServerKey(serverKey)
+                    .from(latlngStart)
+                    .to(latlngDestination)
+                    .transportMode(TransportMode.DRIVING)
+                    .execute(this);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }   // createRoutingMap
-
 
 
     private void createMarker() {
@@ -270,7 +318,44 @@ public class MonitorActivity extends FragmentActivity implements OnMapReadyCallb
         if (direction.isOK()) {
 
             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-            mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.BLUE));
+
+            if (aBoolean2) {
+
+                aBoolean2 = false;
+                mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.GRAY));
+                //ระยะที่ สั้นสุดที่ Google แนะนำ
+                String strLengthIdea = direction.getRouteList().get(0).getLegList().get(0).getDistance().getText().toString();
+                Log.d("16MarchV1", "ระยะห่่าง ที่แนะนำ ==> " + strLengthIdea);
+                String[] strings = strLengthIdea.split(" ");
+                somLengthADouble = somLengthADouble - Double.parseDouble(strings[0]);
+
+
+            }
+
+
+            String strLength = direction.getRouteList().get(0).getLegList().get(0).getDistance().getText().toString();
+
+            Log.d("16MarchV1", "ระยะที่ อ่านได้ strLength ==> " + strLength);
+
+            String[] strings = strLength.split(" ");
+
+
+
+
+
+            double douAdd = Double.parseDouble(strings[0]);
+
+            if (douAdd == 1 && strings[1].equals("m")) {
+                douAdd = 0;
+            } else {
+                if (strings[1].equals("m")) {
+                    douAdd = douAdd / 1000;
+                }
+            }
+
+            somLengthADouble = somLengthADouble + douAdd;
+            Log.d("16MarchV1", "ระยะจริง ที่ยังไม่ลบ ระยะแนะ ==> " + somLengthADouble);
+
 
 
         } else {

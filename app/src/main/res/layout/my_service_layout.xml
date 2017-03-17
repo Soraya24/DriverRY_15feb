@@ -74,5 +74,12 @@
         android:layout_alignParentBottom="true"
         android:background="#c8ffffff" />
 
+    <Button
+        android:id="@+id/btnGoogleMap"
+        android:layout_alignParentRight="true"
+        android:text="Google Map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

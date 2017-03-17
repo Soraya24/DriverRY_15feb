@@ -52,6 +52,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import static android.R.attr.name;
+
 public class ServiceActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback, View.OnClickListener {
 
     //Explicit
@@ -79,7 +81,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private LatLng camera = new LatLng(13.667837, 100.621810);
     private LatLng origin = new LatLng(13.668880, 100.623441);
     private LatLng destination = new LatLng(13.678262, 100.623612);
-    private String[] colors = {"#7fff7272", "#7f31c7c5", "#7fff8a00"};
+    private String[] colors = {"#7f000077", "#7f31c7c5", "#7fff8a00"};
 
 
     @Override
@@ -87,10 +89,11 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_service_layout);
 
+
         //Bind WIdget
         bindWidget();
 
-        //Get Value From Intent โดยการดึงข้อมูล ของผู่ที่กำลัง Login อยู่นั้นเอง
+        //Get Value From Intent โดยการดึงข้อมูล ของผู้ที่กำลัง Login อยู่นั้นเอง
         getValueFromIntent();
 
 
@@ -101,14 +104,37 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         //Setup For Get Location
         setupForGetLocation();
 
-        // Setup MapFragment
+        //Setup MapFragment
         setupMapFragment();
 
         //Button Controller
         buttonController();
 
+        googleMapController();
+
 
     }   //Main Method
+
+    private void googleMapController() {
+
+        Button button = (Button) findViewById(R.id.btnGoogleMap);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345"));
+//                startActivity(intent);
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("geo:0,0?q=13.668160, 100.634406 (" + name + ")"));
+                startActivity(intent);
+
+            }
+        });
+
+
+    }
 
     private void setupMapFragment() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -139,7 +165,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     }   // getValue
 
     private void getValueFromIntent() {
-
         loginStrings = getIntent().getStringArrayExtra("Login");
         Log.d("28decV2", "id_Passenger ==>" + loginStrings[0]);
     }   // getValueFromIntent
@@ -160,7 +185,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-
                 dialogInterface.dismiss();
             }
         });
@@ -170,6 +194,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
                 aBoolean = false;   // คลิกอีกครั้งจะไม่มาที่นี่
                 aBoolean2 = true;
+                //เปลี่ยน Label Button เป็น ออกเดินทาง
                 button.setText(getResources().getString(R.string.start));
 
                 //Intent to PhotoActivity
@@ -177,6 +202,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 intent.putExtra("id_job", jobString[0]);
                 intent.putExtra("phone_customer", phoneString);
                 intent.putExtra("id_Driver", loginStrings[0]);
+                aBoolean2 = true;
                 startActivity(intent);
                 dialogInterface.dismiss();
 
@@ -194,6 +220,11 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         Log.d("19janV1", "เวลาที่เริ่มจับ ==> " + strStartCountTime);
         Log.d("19janV1", "เวลาที่หยุดจับ ==> " + endCountTime);
 
+        //แก้ Error แบบ กำปันทุบดิน
+        if (strStartCountTime == null) {
+            Log.d("19janV1", "ทำงานใน if");
+
+        }
 
         String[] startStrings = strStartCountTime.split(":");
         String[] endStrings = endCountTime.split(":");
@@ -221,13 +252,13 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
             String strResult = updateCountMinus.get();
             Log.d("19janV1", "ผลของการ Update ==> " + strResult);
 
+
             Intent intent = new Intent(ServiceActivity.this, MonitorActivity.class);
             intent.putExtra("Login", loginStrings);
             intent.putExtra("Lat", destination.latitude);
             intent.putExtra("Lng", destination.longitude);
             startActivity(intent);
             finish();
-
 
         } catch (Exception e) {
             Log.d("19janV1", "e ==> " + e.toString());
@@ -245,7 +276,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         button = (Button) findViewById(R.id.button4);
     }   // bindWidget
 
-
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
@@ -259,13 +289,18 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         //For Find Location
         forFindLocation();
 
-
-
+        //Resume After Take Photo
+        if (!aBoolean2) {
+            aBoolean2 = getIntent().getBooleanExtra("aBoolean2", false);
+        }
+        Log.d("15febV2", "ค่าของ aBoolean2 ก่อน Check If ==> " + aBoolean2);
+        // ถ้า aBoolean2 เป็น true
         if (aBoolean2) {
+            aBoolean = false;
             afterReume();
         }
 
-
+        //หลังจาก ไปถ่ายรูป aBoolean จะเป็น False
         if (!aBoolean) {
 
             Log.d("14novV2", "Min ==>" + 0);
@@ -490,16 +525,18 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
             //ก่อนออกเดินทาง
             //Confirm Click ย้ำคิด ย้ำทำ ว่า คลิกแล้วนะ
-
             confirmClick();
 
-
         } else {
+
+            Log.d("13MarchV1", "นี่คือ สภาวะ คลิกออกเดินทาง");
+
             //เริ่มเดินทาง หรือหยุดเวลา ที่จับ
             Calendar calendar = Calendar.getInstance();
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             endCountTime = dateFormat.format(calendar.getTime());
             Log.d("28decV2", "endcountTime หรือเวลาออกเดินทาง ==> " + endCountTime);
+
 
             findWaitMinus();
 
@@ -508,13 +545,12 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
         Log.d("28decV2", "aBoolean ==> " + aBoolean);
 
-    }   //onClick
+    }   // onClick
 
-    // GetJob จะรับส่งค่า id ของคนขับ และ Statusที่มีค่าเท่ากับ 2 ไป
-    // Select Where ที่ Table jobTable
+
+    // GetJob จะส่งค่า id ของคนขับ และ Status ที่มีค่าเท่ากับ 2 ไป
+    // Select Where ที่ Table jobTABLE
     // เพื่อหา Record ที่ คนขับคนนี่รับงานอยู่
-
-
     private class GetJob extends AsyncTask<String, Void, String> {
 
 
@@ -547,7 +583,6 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 return null;
             }
 
-
         }   //doInBack
 
         @Override
@@ -579,11 +614,10 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                 //Create Marker Start
                 origin = new LatLng(Double.parseDouble(jobString[7]),
                         Double.parseDouble(jobString[8]));
-//
+
                 //Create Marker End
                 destination = new LatLng(Double.parseDouble(jobString[10]),
                         Double.parseDouble(jobString[11]));
-//
 
                 requestDirection();
 
@@ -704,7 +738,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
     }  //onMapReady
 
-    // Method ที่ทำหน้าที่ แนะนำเส้นทาง การไได้ระหว่างจุสองจุด ไม่เกิน 3เส้น
+    //  Method ที่ทำหน้าที่ แนะนำเส้นทาง การไปได้ระหว่างจุดสองจุด ไม่เกิน 3 เส้น
     public void requestDirection() {
 
         // Snackbar.make(btnRequestDirection, "Direction Requesting...", Snackbar.LENGTH_SHORT).show();
@@ -724,24 +758,29 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
             //นี่คือการสร้าง Marker ของจุดไปรับลูกค้า Origin
             //และ จุดไปส่งลูกค้า Destination
-
             mMap.addMarker(new MarkerOptions()
                     .position(origin)
-            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_origin)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_origin)));
 
             mMap.addMarker(new MarkerOptions()
                     .position(destination)
-            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_desination)));
-// ถ้าต้องการ Routing จำนวน 3เส้น ให้ใช้ตรงนี้
-//            for (int i = 0; i < direction.getRouteList().size(); i++) {
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.mk_desination)));
 
-            // ต้องการ Routing เพียงเส้นใหล้สุดเส้นเดียว
+// ถ้าต้องการ Routing จำนวน 3 เส้น ให้ใช้ ตรงนี้
+            // for (int i = 0; i < direction.getRouteList().size(); i++) {
+
+            // ต้องการ Routing เพียงเส้นใกล้สุดเส้นเดียว
             for (int i = 0; i < 1; i++) {
                 Route route = direction.getRouteList().get(i);
                 String color = colors[i % colors.length];
                 ArrayList<LatLng> directionPositionList = route.getLegList().get(0).getDirectionPoint();
                 mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.parseColor(color)));
-            }
+
+                Log.d("13MarchV1", "ระยะ ระหว่างจุด ==> " + route.getLegList().get(0).getDistance().getText());
+                Log.d("13MarchV1", "เวลา ระหว่างจุด ==> " + route.getLegList().get(0).getDuration().getText());
+
+
+            }   // for
 
             //  btnRequestDirection.setVisibility(View.GONE);
         }

@@ -17,4 +17,5 @@
     <string name="title_activity_monitor">Map</string>
 
     <string name="finishJob">ทำงานเสร็จสิ้นแล้ว</string>
+    <string name="remember">จดจำ User Password</string>
 </resources>

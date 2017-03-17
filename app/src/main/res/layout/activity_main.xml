@@ -74,5 +74,13 @@
             android:textColor="@color/aText"
             android:textColorHint="@color/aText" />
 
+        <CheckBox
+            android:id="@+id/chbRemember"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold"
+            android:text="@string/remember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </RelativeLayout>
